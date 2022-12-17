@@ -1,0 +1,6 @@
+include_directories(.)
+aux_source_directory(assets libPingo_assets)
+aux_source_directory(math libPingo_math)
+aux_source_directory(render libPingo_render)
+aux_source_directory(. libPingo_backend)
+add_library (pingo ${libPingo_assets} ${libPingo_math} ${libPingo_render} ${libPingo_backend})
