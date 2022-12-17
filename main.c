@@ -28,7 +28,6 @@ SDL_Event e;
 SDL_Texture *texture;
 bool quit;
 
-uint16_t WorkFrame[WINDOW_HEIGHT * WINDOW_WIDTH];
 
 void loop() {
 
@@ -37,15 +36,15 @@ void loop() {
 void sdl_simple_init() {
     SDL_Init(SDL_INIT_VIDEO);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
-    SDL_CreateWindowAndRenderer(WINDOW_WIDTH * 3, WINDOW_HEIGHT * 3, SDL_WINDOW_RESIZABLE, &window, &_renderer);
+    SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE, &window, &_renderer);
 
     //flag 和 depth 实际上没用，并且它们会在sdl3中被删除
-    surface = SDL_CreateRGBSurfaceWithFormat(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_PIXELFORMAT_RGBX8888);
+    surface = SDL_CreateRGBSurfaceWithFormat(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_PIXELFORMAT_BGRA32);
     if (surface == NULL) {
         SDL_Log("SDL_CreateRGBSurfaceWithFormat() failed: %s", SDL_GetError());
         exit(1);
     }
-    texture = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_RGBX8888, SDL_TEXTUREACCESS_STREAMING, WINDOW_WIDTH,
+    texture = SDL_CreateTexture(_renderer, SDL_PIXELFORMAT_BGRA32, SDL_TEXTUREACCESS_STREAMING, WINDOW_WIDTH,
                                 WINDOW_HEIGHT);
 }
 
@@ -98,10 +97,10 @@ int main(int argc, char *argv[]) {
 
     for (int i = 0; i < N; i++)
         for (int y = 0; y < N; y++) {
-            ((uint8_t *) tex.frameBuffer)[4 * (i * N + y) + 0] = y == 0xff;
-//            ((uint8_t *) tex.frameBuffer)[4 * (i * N + y) + 0] = y == 0 ? 0xff : 00;
-//            ((uint8_t *) tex.frameBuffer)[4 * (i * N + y) + 1] = y == 1 ? 0xff : 00;
-//            ((uint8_t *) tex.frameBuffer)[4 * (i * N + y) + 2] = y == 2 ? 0xff : 00;
+//            ((uint8_t *) tex.frameBuffer)[4 * (i * N + y) + 0] = y == 0xff;
+            ((uint8_t *) tex.frameBuffer)[4 * (i * N + y) + 0] = y == 0 ? 0xff : 00;
+            ((uint8_t *) tex.frameBuffer)[4 * (i * N + y) + 1] = y == 1 ? 0xff : 00;
+            ((uint8_t *) tex.frameBuffer)[4 * (i * N + y) + 2] = y == 2 ? 0xff : 00;
             ((uint8_t *) tex.frameBuffer)[4 * (i * N + y) + 3] = 0xff;
         }
 
@@ -150,7 +149,7 @@ int main(int argc, char *argv[]) {
         object.transform = mat4RotateZ(3.142128);
         t = mat4Scale((Vec3f) {80, 80, 80});
         object.transform = mat4MultiplyM(&object.transform, &t);
-        t = mat4Translate((Vec3f) {0, 20, 0});
+        t = mat4Translate((Vec3f) {0, 45, 0});
         object.transform = mat4MultiplyM(&object.transform, &t);
         t = mat4RotateX(3.14);
         object.transform = mat4MultiplyM(&object.transform, &t);
