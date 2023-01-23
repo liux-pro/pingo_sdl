@@ -40,7 +40,7 @@ void pingo_init() {
     object.mesh = &mesh_cube;
 
 
-#define N  1
+#define N  10
     texture_init(&tex1, (Vec2i) {N, N}, malloc(N * N * sizeof(Pixel)));
 
 
@@ -48,7 +48,7 @@ void pingo_init() {
         for (int y = 0; y < N; y++) {
             Pixel p;
             p.blue = 0b11111;
-            tex1.frameBuffer[sizeof(Pixel) * (i * N + y)] = p;
+            tex1.frameBuffer[(i * N + y)] = p;
         }
 
     m.texture = &tex1;
