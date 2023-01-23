@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 //What format to use [ UINT8 | RGB565 | RGBA8888 | BGRA8888 | RGB888 ]
-#define BGRA8888
+#define RGB565
 
 //Formats definitions:
 #ifdef UINT8
@@ -17,9 +17,7 @@ typedef struct Pixel {
 
 #ifdef RGB565
 typedef struct Pixel {
-    uint8_t red:5;
-    uint8_t green:6;
-    uint8_t blue:5;
+    uint16_t red:5,green:6, blue:5;
 }Pixel;
 #define PIXELBLACK (Pixel){0}
 #define PIXELWHITE (Pixel){255}

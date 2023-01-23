@@ -86,3 +86,41 @@ extern Pixel pixelMul(Pixel p, float f)
 }
 
 #endif
+
+#ifdef RGB565
+extern Pixel pixelRandom() {
+    Pixel p;
+    p.red=rand();
+    p.green=rand();
+    p.blue=rand();
+    return p;
+}
+
+extern Pixel pixelFromUInt8( uint8_t g){
+    Pixel p;
+    p.red=g;
+    p.green=g;
+    p.blue=g;
+    return p;
+}
+
+// no use
+//extern uint8_t pixelToUInt8( Pixel * p){
+
+//}
+
+// no use
+//extern Pixel pixelFromRGBA( uint8_t r, uint8_t g, uint8_t b, uint8_t a){
+
+//}
+
+extern Pixel pixelMul(Pixel p, float f)
+{
+    Pixel _p;
+    _p.red=p.red*f;
+    _p.green=p.green*f;
+    _p.blue=p.blue*f;
+    return _p;
+}
+
+#endif
