@@ -2,9 +2,10 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include "fast_hsv2rgb.h"
 
 //What format to use [ UINT8 | RGB565 | RGBA8888 | BGRA8888 | RGB888 ]
-#define RGB565
+#define HSV1688
 
 //Formats definitions:
 #ifdef UINT8
@@ -57,7 +58,15 @@ typedef struct Pixel {
 #define PIXELBLACK (Pixel){0,0,0,255}
 #define PIXELWHITE (Pixel){255,255,255,255}
 #endif
-
+#ifdef HSV1688
+typedef struct Pixel {
+    uint16_t h;
+    uint8_t s;
+    uint8_t v;
+}Pixel;
+#define PIXELBLACK (Pixel){0}
+#define PIXELWHITE (Pixel){255}
+#endif
 
 
 //Interface 

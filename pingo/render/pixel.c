@@ -124,3 +124,30 @@ extern Pixel pixelMul(Pixel p, float f)
 }
 
 #endif
+#ifdef HSV1688
+
+extern Pixel pixelRandom() {
+    Pixel p;
+    p.h = HSV_HUE_MAX * rand();
+    p.s = HSV_SAT_MAX;
+    p.v = HSV_VAL_MAX;
+    return p;
+}
+
+extern Pixel pixelFromUInt8(uint8_t g) {
+    Pixel p;
+    p.h = 0;
+    p.s = 0;
+    p.v = 0;
+    return p;
+}
+
+extern Pixel pixelMul(Pixel p, float f) {
+    Pixel _p;
+    _p.h = p.h;
+    _p.s = p.s;
+    _p.v = p.v * f;
+    return _p;
+}
+
+#endif

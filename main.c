@@ -40,15 +40,18 @@ void pingo_init() {
     object.mesh = &mesh_cube;
 
 
-#define N  10
+#define N  1
     texture_init(&tex1, (Vec2i) {N, N}, malloc(N * N * sizeof(Pixel)));
 
 
     for (int i = 0; i < N; i++)
         for (int y = 0; y < N; y++) {
             Pixel p;
-            p.blue = 0b11111;
+            p.h=HSV_HUE_MAX;
+            p.s=HSV_SAT_MAX;
+            p.v=HSV_VAL_MAX;
             tex1.frameBuffer[(i * N + y)] = p;
+//            tex1.frameBuffer[(i * N + y)] = pixelRandom();
         }
 
     m.texture = &tex1;
